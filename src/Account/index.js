@@ -28,9 +28,11 @@ class Account extends Component {
   }
 
   handleChange = (e)=>{
-    this.setState({
-      amount: parseInt(e.target.value)
-    })
+    if(!isNaN(e.target.value)){
+      this.setState({
+        amount: parseInt(e.target.value)
+      })
+    }
   }
   
   render() {
