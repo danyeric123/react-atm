@@ -1,51 +1,26 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-
-class Account extends Component {
-  constructor(){
-    super()
-    this.state = {
-      amount: 0,
-      balance: 0,
-      input:0
+export default function Account({name}) {
+  const [balance, setBalance] = useState(0)
+  let input
+  const deposit = ()=>{
+    if(!isNaN(input.current.value)){
+      setBalance(balance+Number(input.current.value))
     }
   }
 
-  deposit = ()=>{
-    if(!isNaN(this.state.input)){
-      this.setState({
-        balance: this.state.amount+this.state.balance
-      })
+  const withdraw = ()=>{
+    if(!isNaN(input.current.value)){
+      setBalance(balance-Number(input.current.value))
     }
   }
-
-  withdraw = ()=>{
-    if(!isNaN(this.state.input)){
-      this.setState({
-        balance: this.state.balance-this.state.amount
-      })
-    }
-  }
-
-  handleChange = (e)=>{
-    if(!isNaN(e.target.value)){
-      this.setState({
-        amount: parseInt(e.target.value)
-      })
-    }
-  }
-  
-  render() {
-    return (
-      <div className="account">
-        <h2>{this.props.name}</h2>
-        <div className={this.state.balance===0?"zero":"balance"}>${this.state.balance}</div>
-        <input type="text" onChange={this.handleChange} placeholder="enter an amount" />
-        <input type="button" onClick={this.deposit} value="Deposit" />
-        <input type="button" onClick={this.withdraw} value="Withdraw" />
-      </div>
-    )
-  }
+  return (
+    <div className="account">
+        <h2>{name}</h2>
+        <div className={balance===0?"zero":"balance"}>${balance}</div>
+        <input type="text" ref={input=React.createRef()} placeholder="enter an amount" />
+        <input type="button" onClick={deposit} value="Deposit" />
+        <input type="button" onClick={withdraw} value="Withdraw" />
+    </div>
+  )
 }
-
-export default Account;
