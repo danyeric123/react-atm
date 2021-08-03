@@ -2,14 +2,45 @@ import React, { Component } from 'react';
 
 
 class Account extends Component {
+  constructor(){
+    super()
+    this.state = {
+      amount: 0,
+      balance: 0,
+      input:0
+    }
+  }
+
+  deposit = ()=>{
+    if(!isNaN(this.state.input)){
+      this.setState({
+        balance: this.state.amount+this.state.balance
+      })
+    }
+  }
+
+  withdraw = ()=>{
+    if(!isNaN(this.state.input)){
+      this.setState({
+        balance: this.state.balance-this.state.amount
+      })
+    }
+  }
+
+  handleChange = (e)=>{
+    this.setState({
+      amount: parseInt(e.target.value)
+    })
+  }
+  
   render() {
     return (
       <div className="account">
-        <h2>TODO: CHANGE TO PROP</h2>
-        <div className="balance">$0</div>
-        <input type="text" placeholder="enter an amount" />
-        <input type="button" value="Deposit" />
-        <input type="button" value="Withdraw" />
+        <h2>{this.props.name}</h2>
+        <div className={this.state.balance===0?"zero":"balance"}>${this.state.balance}</div>
+        <input type="text" onChange={this.handleChange} placeholder="enter an amount" />
+        <input type="button" onClick={this.deposit} value="Deposit" />
+        <input type="button" onClick={this.withdraw} value="Withdraw" />
       </div>
     )
   }
