@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 export default function Account({name}) {
   const [balance, setBalance] = useState(0)
-  let input
+  const input = useRef()
   const deposit = ()=>{
     if(!isNaN(input.current.value)){
       setBalance(balance+Number(input.current.value))
@@ -18,7 +18,7 @@ export default function Account({name}) {
     <div className="account">
         <h2>{name}</h2>
         <div className={balance===0?"zero":"balance"}>${balance}</div>
-        <input type="text" ref={input=React.createRef()} placeholder="enter an amount" />
+        <input type="text" ref={input} placeholder="enter an amount" />
         <input type="button" onClick={deposit} value="Deposit" />
         <input type="button" onClick={withdraw} value="Withdraw" />
     </div>
